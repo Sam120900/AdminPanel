@@ -1,25 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import db from './firebase.config';
+import React,{useState,useEffect} from 'react';
+import { UserInput } from './UserInput';
 
 function App() {
+
+  const [users, setUsers] = React.useState([])
+
+  React.useEffect(() => {
+      const fetchData = async () => {
+
+      const data = await db.collection("userProfile").get()
+      setUsers(data.docs.map(doc => ({...doc.data(), id:doc.id})))
+    }
+    fetchData()
+  }, [])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+    <ul>
+      {users.map(user => (
+        <li key={user.uid}> 
+          <UserInput user={user}/>
+        </li>
+      ))}
+    </ul>
+
+
   );
 }
-
 export default App;
