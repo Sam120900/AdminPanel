@@ -4,6 +4,7 @@ import db from './firebase.config'
 export const UserInput = ({ user }) => {
     const [firstName, setName] = React.useState(user.firstName);
     const [lastName, setName2] = React.useState(user.lastName);
+    const [email] = React.useState(user.email);
   
   
     const onUpdate = () => {
@@ -29,8 +30,12 @@ export const UserInput = ({ user }) => {
           setName2(e.target.value);
         }}
       />
+      <input
+        value={email}
+        readonly='readonly'
+    />
       <button onClick={onUpdate}>Update</button>
       <button onClick={onDelete}>Delete</button>
     </>
   );
-};
+    };
