@@ -1,10 +1,12 @@
 import React from "react";
-import db from './firebase.config'
+  import db from './firebase.config'
 
 export const UserInput = ({ user }) => {
     const [firstName, setName] = React.useState(user.firstName);
     const [lastName, setName2] = React.useState(user.lastName);
     const [email] = React.useState(user.email);
+    const [purchase] = React.useState(user.isPurchased);
+    const [date] = React.useState(user.paymentDate);
   
   
     const onUpdate = () => {
@@ -33,7 +35,15 @@ export const UserInput = ({ user }) => {
       <input
         value={email}
         readonly='readonly'
-    />
+      />
+      <input
+        value={purchase}
+        readonly='readonly'
+      />
+      <input
+        value={date}
+        readonly='readonly'
+      />
       <button onClick={onUpdate}>Update</button>
       <button onClick={onDelete}>Delete</button>
     </>
